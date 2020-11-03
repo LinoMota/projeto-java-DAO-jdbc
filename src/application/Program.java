@@ -15,12 +15,14 @@ public class Program {
 		SellerDao sellerDao = DaoFactory.createSellerDao();
 		
 		
-		Department department = new Department(2, null);
+		Seller seller = new Seller();
+		seller.setBaseSalary(2500.0);
+		seller.setName("Linus");
+		seller.setEmail("lcmn@icomp.edu.br");
+		seller.setBirthDate(new Date());
+		seller.setDepartment(new Department(2, null));
 		
-		List<Seller> list = sellerDao.findAll();
-		
-		for(Seller seller : list)
-			System.out.println(seller);
+		sellerDao.insert(seller);
 	}
 
 }
