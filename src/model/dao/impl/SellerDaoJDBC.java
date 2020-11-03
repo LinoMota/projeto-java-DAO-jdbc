@@ -73,25 +73,17 @@ public class SellerDaoJDBC implements SellerDao{
 			
 			st = conn.prepareStatement("update seller "
 					+ "set Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
-					+ "where Id = ?",
-			Statement.RETURN_GENERATED_KEYS);
+					+ "where Id = ?");
 			
 			st.setString(1, obj.getName());
 			st.setString(2, obj.getEmail());
 			st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
 			st.setDouble(4, obj.getBaseSalary());
 			st.setInt(5, obj.getDepartment().getId());
+			st.setInt(6, obj.getId());
 			
-			int affecteds = st.executeUpdate();
+			st.executeUpdate();
 			
-			if(affecteds > 0) {
-				rs = st.getGeneratedKeys();
-				if(rs.next()) {
-					int id = rs.getInt(1);
-					obj.setId(id);
-				}
-			}else
-				throw new DbException("Erro inesperado nenhuma linha foi alterada !");
 			
 		}catch(SQLException e) {
 			throw new DbException(e.getMessage());
